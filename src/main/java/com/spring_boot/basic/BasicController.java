@@ -103,6 +103,13 @@ public class BasicController {
         return "basic/operation";
     }
 
+    @GetMapping("/attribute")
+    public String attirbute(Model model) {
+        model.addAttribute("checked", true);
+        model.addAttribute("unchecked", false);
+        return "basic/attribute";
+    }
+
     @Component("helloBean")
     static class HelloBean {
         public String hello(String data) {
