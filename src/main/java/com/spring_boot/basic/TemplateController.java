@@ -23,4 +23,14 @@ public class TemplateController {
     public String template() {
         return "template/fragment/fragmentMain";
     }
+
+    @GetMapping("/layout")
+    public String layout() {
+        return "template/layout/layoutMain";
+    }
+
+    @GetMapping("/contentPage")
+    public String layoutExtends() {
+        return "template/content/content";
+    }
 }
