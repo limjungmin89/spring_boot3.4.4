@@ -35,6 +35,15 @@
             <label for="quantity">수량</label>
             <input type="text" id="quantity" class="form-control" value="10" th:field="${item.quantity}">
         </div>
+        <div>
+            <input type="checkbox" id="open" name="open" class="form-check-label" value="10" th:field="${item.open}">
+            <label for="open" class="form-check-label">판매 오픈</label>
+        </div>
+        <div>등록 지역</div>
+        <div th:each="region : ${regions}" class="form-check form-check-inline">
+            <input type="checkbox" th:field="${item.regions}" th:value="${region.key}" class="form-check-input">
+            <label th:for="${#ids.prev('regions')}" th:text="${region.value}" class="form-check-label">서울</label>
+        </div>
 
         <hr class="my-4">
 
