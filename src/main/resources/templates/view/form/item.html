@@ -39,14 +39,31 @@
     </div>
     <div>판매 오픈</div>
     <div class="form-check form-check-inline">
-        <input type="checkbox" id="open" name="open" class="form-check-label" value="10" th:field="${item.open}" disabled>
+        <input type="checkbox" id="open" name="open" class="form-check-input" value="10" th:field="${item.open}" disabled>
         <label for="open" class="form-check-label">판매 오픈</label>
     </div>
     <div>등록 지역</div>
     <div th:each="region : ${regions}" class="form-check form-check-inline">
-        <input type="checkbox" th:field="${item.regions}" th:value="${region.key}" class="form-check-label" disabled>
+        <input type="checkbox" th:field="${item.regions}" th:value="${region.key}" class="form-check-input" disabled>
         <label th:for="${#ids.prev('regions')}" th:text="${region.value}" class="form-check-label">서울</label>
     </div>
+    <div>상품 코드</div>
+    <div th:each="type : ${itemTypes}" class="form-check form-check-inline">
+        <input type="radio" th:field="${item.itemType}" th:value="${type.name()}" class="form-check-input" disabled>
+        <label th:for="${#ids.prev('itemType')}" th:text="${type.description}" class="form-check-label">BOOK</label>
+    </div>
+    <div>상품 종류 T 문법 사용</div>
+    <div th:each="type : ${T(com.spring_boot.web.domain.ItemType).values()}" class="form-check form-check-inline">
+        <input type="radio" th:field="${item.itemType}" th:value="${type.name()}" class="form-check-input" disabled>
+        <label th:for="${#ids.prev('itemType')}" th:text="${type.description}" class="form-check-label">BOOK</label>
+    </div>
+
+    <!-- SELECT -->
+    <div>배송 방식</div>
+    <select th:field="${item.deliveryCode}" class="form-select" disabled>
+        <option value="">==배송 방식 선택==</option>
+        <option th:each="deliveryCode : ${deliveryCodes}" th:value="${deliveryCode.code}" th:text="${deliveryCode.displayName}">FAST</option>
+    </select>
 
     <hr class="my-4">
 
