@@ -19,21 +19,33 @@
     </div>
 
     <form action="view/form/item.html" th:action th:object="${item}" method="post">
+        <div th:if="${errors?.containsKey('globalError')}">
+            <p class="field-error" th:text="${errors['globalError']}">전체 오류 메시지</p>
+        </div>
         <div>
             <label for="id" th:text="#{label.item.itemId}">상품 ID</label>
             <input type="text" id="id" class="form-control" value="1" th:field="${item.id}" readonly>
         </div>
         <div>
             <label for="itemName" th:text="#{label.item.itemName}">상품명</label>
-            <input type="text" id="itemName" class="form-control" value="상품A" th:field="${item.itemName}">
+            <input type="text" id="itemName" class="form-control" value="상품A" th:field="${item.itemName}" th:classappend="${errors?.containsKey('itemName')} ? 'field-error' : _">
+            <div class="field-error" th:if="${errors?.containsKey('itemName')}" th:text="${errors['itemName']}">
+                상품명 오류
+            </div>
         </div>
         <div>
             <label for="price" th:text="#{label.item.price}">가격</label>
-            <input type="text" id="price" class="form-control" value="10000" th:field="${item.price}">
+            <input type="text" id="price" class="form-control" value="10000" th:field="${item.price}" th:classappend="${errors?.containsKey('price')} ? 'field-error' : _">
+            <div class="field-error" th:if="${errors?.containsKey('price')}" th:text="${errors.price}">
+                가격 오류
+            </div>
         </div>
         <div>
             <label for="quantity" th:text="#{label.item.quantity}">수량</label>
-            <input type="text" id="quantity" class="form-control" value="10" th:field="${item.quantity}">
+            <input type="text" id="quantity" class="form-control" value="10" th:field="${item.quantity}" th:classappend="${errors?.containsKey('quantity')} ? 'field-error' : _">
+            <div class="field-error" th:if="${errors?.containsKey('quantity')}" th:text="${errors['quantity']}">
+                수량 오류
+            </div>
         </div>
         <div>
             <input type="checkbox" id="open" name="open" class="form-check-label" value="10" th:field="${item.open}">
@@ -50,11 +62,11 @@
             <label th:for="${#ids.prev('itemType')}" th:text="${type.description}" class="form-check-label">BOOK</label>
         </div>
 
-        <div th:text="#{label.item.itemType}">상품 종류 T 문법 사용</div>
-        <div th:each="type : ${T(com.spring_boot.web.domain.ItemType).values()}" class="form-check form-check-inline">
-            <input type="radio" th:field="${item.itemType}" th:value="${type.name()}" class="form-check-input">
-            <label th:for="${#ids.prev('itemType')}" th:text="${type.description}" class="form-check-label">BOOK</label>
-        </div>
+<!--        <div th:text="#{label.item.itemType}">상품 종류 T 문법 사용</div>-->
+<!--        <div th:each="type : ${T(com.spring_boot.web.domain.ItemType).values()}" class="form-check form-check-inline">-->
+<!--            <input type="radio" th:field="${item.itemType}" th:value="${type.name()}" class="form-check-input">-->
+<!--            <label th:for="${#ids.prev('itemType')}" th:text="${type.description}" class="form-check-label">BOOK</label>-->
+<!--        </div>-->
 
         <!-- SELECT -->
         <div>
