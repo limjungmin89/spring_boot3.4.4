@@ -1,6 +1,11 @@
 package com.spring_boot.web.domain;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.websocket.OnMessage;
 import lombok.Data;
+import org.hibernate.validator.constraints.Range;
 
 import java.util.List;
 
@@ -18,9 +23,18 @@ import java.util.List;
 @Data
 public class Item {
 
+    @NotNull(groups = ItemUpdate.class)
     private Long id;
+
+    @NotBlank(groups = {ItemSave.class, ItemUpdate.class})
     private String itemName;
+
+    @NotNull(groups = {ItemSave.class, ItemUpdate.class})
+    @Range(min=1000, max=1000000, message = "{0} ~ {1} 범위를 허용합니다.")
     private Integer price;
+
+    @NotNull(groups = {ItemSave.class, ItemUpdate.class})
+    @Max(value = 9999, groups = ItemSave.class)
     private Integer quantity;
 
     private Boolean open;
