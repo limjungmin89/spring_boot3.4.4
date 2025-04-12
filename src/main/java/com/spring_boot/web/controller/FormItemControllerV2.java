@@ -257,6 +257,15 @@ public class FormItemControllerV2 {
         return "redirect:/form/items/v2/{itemId}";
     }
 
+    /*
+    *
+    * @Validated` `@Valid` 둘다 사용가능하다.
+`javax.validation.@Valid` 를 사용하려면`build.gradle` 의존관계 추가가 필요하다.
+`implementation 'org.springframework.boot:spring-boot-starter-validation'`
+`@Validated` 는 스프링 전용 검증 애노테이션이고, `@Valid` 는 자바 표준 검증 애노테이션
+    *
+    *
+    * */
     @PostMapping("/add")
     public String addItemV6(@Validated @ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
