@@ -1,6 +1,7 @@
 package com.spring_boot.web.controller;
 
 import com.spring_boot.web.SessionManager;
+import com.spring_boot.web.argumentresolver.Login;
 import com.spring_boot.web.dao.MemberRepository;
 import com.spring_boot.web.domain.Member;
 import com.spring_boot.web.domain.SessionConst;
@@ -80,8 +81,19 @@ public class HomeController {
         return "loginHome";
     }
 
-    @GetMapping("/")
+//    @GetMapping("/")
     public String homeLoginV4(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false)Member member, Model model) {
+
+        if(member == null) {
+            return "home";
+        }
+
+        model.addAttribute("member", member);
+        return "loginHome";
+    }
+
+    @GetMapping("/")
+    public String homeLoginV5(@Login Member member, Model model) {
 
         if(member == null) {
             return "home";
