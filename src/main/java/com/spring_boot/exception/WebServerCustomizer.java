@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  * -----------------------------------------------------------
  * 2025. 4. 14.        mzc01-jungminim       최초 생성
  */
-//@Component
+@Component
 public class WebServerCustomizer implements WebServerFactoryCustomizer<ConfigurableWebServerFactory> {
     @Override
     public void customize(ConfigurableWebServerFactory factory) {
