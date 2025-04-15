@@ -1,8 +1,13 @@
 package com.spring_boot.config;
 
+import com.spring_boot.converter.IntegerToStringConverter;
+import com.spring_boot.converter.IpPortToStringConverter;
+import com.spring_boot.converter.StringToIntegerConverter;
+import com.spring_boot.converter.StringToIpPortConverter;
 import com.spring_boot.exception.BasicHandlerExceptionResolver;
 import com.spring_boot.filter.LogFilter;
 import com.spring_boot.filter.LoginCheckFilter;
+import com.spring_boot.formatter.BasicFormatter;
 import com.spring_boot.interceptor.LogInterceptor;
 import com.spring_boot.interceptor.LoginCheckInterceptor;
 import com.spring_boot.interceptor.LoginMemberArgumentResolver;
@@ -11,6 +16,7 @@ import jakarta.servlet.Filter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -64,7 +70,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(new LoginCheckInterceptor())
                 .order(2)
                 .addPathPatterns("/**")
-                .excludePathPatterns("/", "/members/add", "/login", "/logout", "/css/**", "/*.ico", "/error","/error-**/**", "/api/**", "/api2/**", "/api3/**");
+                .excludePathPatterns("/", "/members/add", "/login", "/logout", "/css/**", "/*.ico", "/error","/error-**/**", "/api/**", "/api2/**", "/api3/**", "/ip-port/**", "/convert/**");
     }
 
     @Override
@@ -75,5 +81,17 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
         resolvers.add(new BasicHandlerExceptionResolver());
+    }
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        // 컨버터 추가
+//        registry.addConverter(new StringToIntegerConverter());
+//        registry.addConverter(new IntegerToStringConverter());
+        registry.addConverter(new StringToIpPortConverter());
+        registry.addConverter(new IpPortToStringConverter());
+
+        // 포맷터 추가
+        registry.addFormatter(new BasicFormatter());
     }
 }
