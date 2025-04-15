@@ -1,5 +1,6 @@
 package com.spring_boot.config;
 
+import com.spring_boot.exception.BasicHandlerExceptionResolver;
 import com.spring_boot.filter.LogFilter;
 import com.spring_boot.filter.LoginCheckFilter;
 import com.spring_boot.interceptor.LogInterceptor;
@@ -11,6 +12,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -68,5 +70,10 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         resolvers.add(new LoginMemberArgumentResolver());
+    }
+
+    @Override
+    public void extendHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
+        resolvers.add(new BasicHandlerExceptionResolver());
     }
 }
