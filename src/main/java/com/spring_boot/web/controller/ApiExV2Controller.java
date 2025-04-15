@@ -45,7 +45,7 @@ public class ApiExV2Controller {
         return new ErrorResult("EX", e.getMessage());
     }
 
-    @GetMapping("/api2/members/{id}")
+    @GetMapping("/api2/member/{id}")
     public MemberDto getMember(@PathVariable("id") String id) {
         if (id.equals("ex")) {
             throw new RuntimeException("잘못된 사용자");
