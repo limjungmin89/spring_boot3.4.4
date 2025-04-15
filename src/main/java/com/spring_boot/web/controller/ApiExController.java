@@ -1,11 +1,15 @@
 package com.spring_boot.web.controller;
 
+import com.spring_boot.exception.BadRequestException;
 import com.spring_boot.exception.UserException;
 import com.spring_boot.web.domain.MemberDto;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 /**
  * packageName    : com.spring_boot.web.controller
@@ -36,7 +40,20 @@ public class ApiExController {
             throw new UserException("사용자 오류");
         }
 
+        if(id.equals("response-status-ex1")) {
+            throw new BadRequestException();
+        }
+
+        if(id.equals("response-status-ex2")) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "error.bad", new IllegalArgumentException());
+        }
+
         return new MemberDto(id, "hello " + id);
+    }
+
+    @GetMapping("/api/default-handler-ex")
+    public String defaultException(@RequestParam Integer data) {
+        return "ok";
     }
 
 }
