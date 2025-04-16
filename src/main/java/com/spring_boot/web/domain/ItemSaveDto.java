@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -38,13 +39,18 @@ public class ItemSaveDto {
     private ItemType itemType;
     private String deliveryCode;
 
+    private MultipartFile file;
+    private List<MultipartFile> imageFiles;
+
     public ItemSaveDto() {
     }
 
-    public ItemSaveDto(String itemName, Integer price, Integer quantity) {
+    public ItemSaveDto(String itemName, Integer price, Integer quantity, MultipartFile file, List<MultipartFile> imageFiles) {
         this.itemName = itemName;
         this.price = price;
         this.quantity = quantity;
+        this.file = file;
+        this.imageFiles = imageFiles;
     }
 
 }
