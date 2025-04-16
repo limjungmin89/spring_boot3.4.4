@@ -135,6 +135,7 @@ public class FormItemControllerV5 {
         return "redirect:/form/items/v5/{itemId}";
     }
 
+    // 파일 Id로 Item 정보 조회 후 파일명을 통한 파일 다운로드
     @GetMapping("/file/{id}")
     public ResponseEntity<Resource> fileResource(@PathVariable Long id) throws MalformedURLException {
 
@@ -147,6 +148,7 @@ public class FormItemControllerV5 {
                 .body(urlResource);
     }
 
+    // 파일명을 통한 파일다운로드
     @GetMapping("/fileName/{savedFileName}")
     public ResponseEntity<Resource> imageResource(@PathVariable String savedFileName) throws MalformedURLException {
         UrlResource urlResource = new UrlResource("file:" + fileStore.getFullPath(savedFileName));
